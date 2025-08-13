@@ -19,5 +19,14 @@ spring:
       hibernate:
         format_sql: true
 
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
 jwt:
   secret: jmvvEiFivegd0EkIZqly1zooV32jJIVLEM3XB8nANJ4=
