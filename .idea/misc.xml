@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/ApiGateWay/pom.xml" />
+        <option value="$PROJECT_DIR$/AuthService/pom.xml" />
+        <option value="$PROJECT_DIR$/ConfigServer/pom.xml" />
+        <option value="$PROJECT_DIR$/EurekaServer/pom.xml" />
+        <option value="$PROJECT_DIR$/AccountService/pom.xml" />
+        <option value="$PROJECT_DIR$/NomineeService/pom.xml" />
+        <option value="$PROJECT_DIR$/CustomerService/pom.xml" />
+        <option value="$PROJECT_DIR$/FDSchemeService/pom.xml" />
+        <option value="$PROJECT_DIR$/TransactionService/pom.xml" />
+        <option value="$PROJECT_DIR$/NotificationService/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="ms-21" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
