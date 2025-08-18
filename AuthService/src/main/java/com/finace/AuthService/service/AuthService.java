@@ -23,6 +23,10 @@ public class AuthService {
     private final JwtService jwtService;
 
     public AuthResponse register(UserDTO request) {
+
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new RuntimeException("Username already taken");
+        }
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
