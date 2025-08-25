@@ -37,3 +37,13 @@ springdoc:
 
 jwt:
   secret: jmvvEiFivegd0EkIZqly1zooV32jJIVLEM3XB8nANJ4=
+
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: customer-service-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"

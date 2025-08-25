@@ -11,7 +11,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class UserDTO {
+    private Long id;
     private String username;
     private String password;
     private String role;
+
+    @Override
+    public String toString() {
+        return username + "|" + password + "|" + role;
+    }
+
 }

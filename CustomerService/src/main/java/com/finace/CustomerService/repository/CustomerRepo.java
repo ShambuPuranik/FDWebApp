@@ -4,4 +4,6 @@ import com.finace.CustomerService.domain.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepo extends JpaRepository<Customer, Long> {
+
+//    boolean existsByUsername(String username);
 }

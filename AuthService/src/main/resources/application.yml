@@ -21,5 +21,22 @@ spring:
         format_sql: true
 
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+
+kafka:
+  topic:
+    user-registered: user_registered_topic
+
+
+
 jwt:
   secret: jmvvEiFivegd0EkIZqly1zooV32jJIVLEM3XB8nANJ4=
