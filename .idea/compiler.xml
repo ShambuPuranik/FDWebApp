@@ -14,8 +14,8 @@
         <module name="AuthService" />
         <module name="NotificationService" />
         <module name="ConfigServer" />
-        <module name="AccountService" />
         <module name="FDSchemeService" />
+        <module name="AccountService" />
         <module name="ApiGateWay" />
       </profile>
     </annotationProcessing>

@@ -31,7 +31,7 @@ public class MqttUserSubscriber {
             client = new MqttClient(BROKER, clientId);
 
             MqttConnectOptions options = new MqttConnectOptions();
-            options.setCleanSession(false); // Durable subscription
+            options.setCleanSession(false);
             options.setAutomaticReconnect(true);
 
             client.connect(options);
