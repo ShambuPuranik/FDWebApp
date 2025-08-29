@@ -1,6 +1,7 @@
 package com.finace.AccountService.controller;
 
 
+import com.finace.AccountService.dto.AccountDTO;
 import com.finace.AccountService.service.AccountService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +20,7 @@ public class AccountController {
         return accountService.debit(accountId, amount);
     }
 
-//    @PostMapping("/debits/{accountId}/{amount}")
-//    public String debits(@PathVariable String accountId, @PathVariable double amount) {
-//        return accountService.debit(accountId, amount);
-//    }
+
 
     @PostMapping("/credit/{accountId}/{amount}")
     public String credit(@PathVariable String accountId, @PathVariable double amount) {
@@ -38,6 +36,24 @@ public class AccountController {
     public String transferAmount( @PathVariable double amount,@PathVariable String fromAccountId, @PathVariable String toAccountId){
         return accountService.transfer(amount,fromAccountId,toAccountId);
     }
+
+    @PostMapping("/createAccount")
+    public AccountDTO creteAccount(@RequestBody AccountDTO accountDTO){
+        return accountService.createAcount(accountDTO);
+    }
+
+    @PostMapping("/creditAmount/{accountId}/{amount}")
+    public String creditAmount(@PathVariable String accountId, @PathVariable double amount){
+        return accountService.creditAmount(accountId, amount);
+    }
+
+    @PostMapping("/debitAmount/{accountId}/{amount}")
+    public String debitAmount(@PathVariable String accountId, @PathVariable double amount) {
+        return accountService.debitAmount(accountId, amount);
+    }
+
+
+
 
 
 }

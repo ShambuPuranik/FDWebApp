@@ -18,5 +18,12 @@ public interface AccountClient {
     @PostMapping("/account/balance")
     double getBalance();
 
+    @PostMapping("/account/debitAmount/{accountId}/{amount}")
+    String debitAmount(@PathVariable String accountId, @PathVariable double amount);
+
+    @PostMapping("/account/creditAmount/{accountId}/{amount}")
+     String creditAmount(@PathVariable String accountId, @PathVariable double amount);
+
+
 
 }

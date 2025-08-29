@@ -2,14 +2,26 @@ package com.finace.AccountService.service;
 
 
 
+import com.finace.AccountService.AccountRepo;
+import com.finace.AccountService.domain.Account;
+import com.finace.AccountService.dto.AccountDTO;
+import com.finace.AccountService.mapper.AccountMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class AccountService {
+
+    @Autowired
+    private  AccountRepo accountRepo;
+
+    @Autowired
+    private AccountMapper accountMapper;
 
 //    private double balance = 5000.0; // sample balance
 //
@@ -44,7 +56,7 @@ public class AccountService {
 
         double balance = accounts.get(accountId);
         if (amount > balance) {
-            throw new RuntimeException("Insufficient balance in " + accountId + ". Available: " + balance);
+            throw new RuntimeException("Insufficient balance in " + accountId);
         }
         accounts.put(accountId, balance - amount);
         return "Debited " + amount + " from " + accountId + ". Remaining: " + accounts.get(accountId);
@@ -58,7 +70,7 @@ public class AccountService {
         return "Credited " + amount + " to " + accountId + ". New balance: " + accounts.get(accountId);
     }
 
-    public String transfer(@PathVariable double amount, @PathVariable String fromAccountId, @PathVariable String toAccountId ){
+    public String transfer( double amount,  String fromAccountId,  String toAccountId ){
         if (!accounts.containsKey(fromAccountId)) {
             throw new RuntimeException("Account not found: " + fromAccountId);
         }
@@ -79,5 +91,35 @@ public class AccountService {
             throw new RuntimeException("Account not found: " + accountId);
         }
         return accounts.get(accountId);
+    }
+
+
+    public AccountDTO createAcount(AccountDTO accountDTO){
+        Account account = accountRepo.save(accountMapper.toEntity(accountDTO));
+        return accountMapper.toDto(account);
+    }
+
+    public String creditAmount(String  accountId, double amount){
+
+      Account account =  accountRepo.findByAccountId(accountId);
+      account.setBalance(account.getBalance()+amount);
+        accountRepo.save(account);
+        //       Account account = accountRepo.save(accountMapper.toEntity(accountDTO));
+//        accountMapper.toDto(account);
+        return "Success";
+    }
+
+    public String debitAmount(String  accountId, double amount){
+       Account account = accountRepo.findByAccountId(accountId);
+
+           if(account.getBalance()>amount){
+               double finalAmt = account.getBalance()-amount;
+               account.setBalance(finalAmt);
+               accountRepo.save(account);
+                return "Balance After debit :" +finalAmt;
+        }
+        return "Insufficient Balance";
+
+
     }
 }

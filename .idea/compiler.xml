@@ -10,13 +10,23 @@
         <module name="EurekaServer" />
         <module name="NomineeService" />
         <module name="CustomerService" />
-        <module name="TransactionService" />
         <module name="AuthService" />
         <module name="NotificationService" />
         <module name="ConfigServer" />
         <module name="FDSchemeService" />
         <module name="AccountService" />
         <module name="ApiGateWay" />
+      </profile>
+      <profile name="Annotation profile for TransactionService" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar" />
+        </processorPath>
+        <module name="TransactionService" />
       </profile>
     </annotationProcessing>
   </component>
