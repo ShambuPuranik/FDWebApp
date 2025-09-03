@@ -62,6 +62,7 @@ public class TransactionService {
 
     }
 
+    @CircuitBreaker(name = "accountService", fallbackMethod = "transferFallBack")
     public String transferAmounts(TransactionDTO transactionDTO){
 
         if(accountClient.debitAmount(transactionDTO.getFromAcc(),transactionDTO.getAmount()).startsWith("Balance After debit")){
@@ -75,6 +76,28 @@ public class TransactionService {
             return "Success";
         }else return "transfer Failed";
 
+    }
+
+    public String transferFallBack(String accountId, double amount, Throwable ex) {
+        String insufficientMsg = "Insufficient balance in " + accountId;
+        if (ex instanceof RuntimeException && ex.getMessage().startsWith(insufficientMsg)) {
+            // Business failure → compensate immediately
+            double beforeBalance = accountClient.getBalance();
+            // Perform rollback (credit)
+            String rollback = accountClient.creditAmount(accountId, amount);
+
+            // Fetch balance after rollback
+            double afterBalance = accountClient.getBalance();
+
+            // Print log
+            System.out.println(" Before rollback balance: " + beforeBalance);
+            System.out.println(" After rollback balance: " + afterBalance);
+
+            return " Debit failed: " + ex.getMessage() +
+                    " | Compensation applied: " + rollback;
+        }
+        // Service unavailable → don't retry now, mark pending
+        return " Debit failed (service down). Saga will retry later. Reason: " + ex.getMessage();
     }
 
 }

@@ -3,8 +3,7 @@ server:
 
 spring:
   application:
-    name: ApiGateWay
-
+    name: api-gateway
 
   cloud:
     gateway:
@@ -15,31 +14,40 @@ spring:
               enabled: true
               lower-case-service-id: true
 
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+          routes:
+            - id: customer-service
+              uri: lb://customer-service
+              predicates:
+                - Path=/customer-service/**
+              filters:
+                - StripPrefix=1
+            - id: account-service
+              uri: lb://account-service
+              predicates:
+                - Path=/account-service/**
+              filters:
+                - StripPrefix=1
+            - id: transaction-service
+              uri: lb://transaction-service
+              predicates:
+                - Path=/transaction-service/**
+              filters:
+                - StripPrefix=1
+            - id: transaction-service
+              uri: lb://transaction-service
+              predicates:
+                - Path=/transaction-service/**
+              filters:
+                - StripPrefix=1
 springdoc:
   swagger-ui:
+    path: /swagger-ui.html
     urls:
-      - name: CustomerService
-        url: /CustomerService/v3/api-docs
-
-
-
-#springdoc:
-#  swagger-ui:
-#    urls:
-#      - name: program-manager
-#        url: http://localhost:8081/v3/api-docs
-#      - name: enrolment-manager
-#        url: http://localhost:8084/v3/api-docs
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+      - name: account-service
+        url: /account-service/v3/api-docs
+      - name: transaction-service
+        url: /transaction-service/v3/api-docs
+      - name: transaction-service
+        url: /transaction-service/v3/api-docs
+      - name: customer-service
+        url: /customer-service/v3/api-docs

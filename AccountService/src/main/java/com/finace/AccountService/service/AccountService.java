@@ -112,13 +112,16 @@ public class AccountService {
     public String debitAmount(String  accountId, double amount){
        Account account = accountRepo.findByAccountId(accountId);
 
-           if(account.getBalance()>amount){
+        if (amount > account.getBalance()) {
+            throw new RuntimeException("Insufficient balance in " + accountId);
+        } else
+        if(account.getBalance()>amount){
                double finalAmt = account.getBalance()-amount;
                account.setBalance(finalAmt);
                accountRepo.save(account);
                 return "Balance After debit :" +finalAmt;
         }
-        return "Insufficient Balance";
+        return  null;
 
 
     }
