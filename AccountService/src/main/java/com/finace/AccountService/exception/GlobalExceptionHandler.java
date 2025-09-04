@@ -22,12 +22,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.server.ResponseStatusException;
-//
-//import javax.servlet.http.HttpServletRequest;
-//import javax.validation.ConstraintViolation;
-//import javax.validation.ConstraintViolationException;
+
 import java.time.Instant;
 import java.util.*;
 
@@ -162,5 +157,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(buildErrorResponse(request, HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected error occurred", errors));
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<String> handleAccountNotFound(AccountNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InsufficientBalanceException.class)
+    public ResponseEntity<String> handleInsufficientBalance(InsufficientBalanceException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }
