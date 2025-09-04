@@ -32,11 +32,7 @@ public class AccountController {
 //        return accountService.credit(accountId, amount);
 //    }
 
-//    @GetMapping("/balance/{accountId}")
-//    public double getBalance(@PathVariable String accountId) {
-//        return accountService.getBalance(accountId);
-//    }
-//
+
     @PostMapping("/transfer/{amount}/{fromAccountId}/{toAccountId}")
     public String transferAmount( @PathVariable double amount,@PathVariable String fromAccountId, @PathVariable String toAccountId){
         return accountService.transfer(amount,fromAccountId,toAccountId);
